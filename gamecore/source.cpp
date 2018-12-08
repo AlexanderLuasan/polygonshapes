@@ -5,6 +5,7 @@
 #include <random>
 #include "line.h"
 #include "collision.h"
+#include "display.h"
 using namespace std;
 
 void draw(poly * shape);
@@ -14,17 +15,16 @@ int main() {
 
 	al_init();
 	al_init_primitives_addon();
-	ALLEGRO_DISPLAY * screen;
+	display screen = display(400,300,2);
 	ALLEGRO_TIMER * timmer;
 	ALLEGRO_EVENT_QUEUE * queue;
 	
-	screen = al_create_display(800,600);
 	timmer = al_create_timer(1 / 60.0);
 	queue = al_create_event_queue();
 	al_install_keyboard();
 	al_start_timer(timmer);
 
-	al_register_event_source(queue,al_get_display_event_source(screen));
+	al_register_event_source(queue,al_get_display_event_source(screen.gets()));
 	al_register_event_source(queue, al_get_timer_event_source(timmer));
 	al_register_event_source(queue, al_get_keyboard_event_source());
 
@@ -32,15 +32,15 @@ int main() {
 	//poly testing
 
 	collisionObject triangle;
-	triangle.setX(400);
-	triangle.setY(275);
+	triangle.setX(200);
+	triangle.setY(125);
 	triangle.addline(line(0,0,0,100));
 	triangle.addline(line(0, 100, 200, 0));
 	triangle.addline(line(200, 0, 0, 0));
 	triangle.centerpoint();
 	collisionObject rectangle;
-	rectangle.setX(400);
-	rectangle.setY(300);
+	rectangle.setX(200);
+	rectangle.setY(150);
 	rectangle.addline(line(-100,50,100,50));
 	rectangle.addline(line(100,50, 100, -50));
 	rectangle.addline(line(100, -50, -100, -50));
@@ -183,10 +183,9 @@ int main() {
 				cout << "no test" << endl;
 			}
 
-			al_clear_to_color(al_map_rgb(255,255,255));
-			draw(triangle.getdraw());
-			draw(rectangle.getdraw());
-			//draw(shape.getdraw());
+			screen.drawstart();
+			screen.draw(triangle.getdraw());
+			screen.draw(rectangle.getdraw());
 			al_flip_display();
 		}
 		else if(event.type ==ALLEGRO_EVENT_DISPLAY_CLOSE){

@@ -118,6 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="collision.cpp" />
+    <ClCompile Include="display.cpp" />
     <ClCompile Include="line.cpp" />
     <ClCompile Include="poly.cpp" />
     <ClCompile Include="source.cpp" />
@@ -128,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="collision.h" />
+    <ClInclude Include="display.h" />
     <ClInclude Include="line.h" />
     <ClInclude Include="poly.h" />
     <ClInclude Include="tiledparser.h" />
